@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt')
+const createUserToken = require('../helpers/create-user-token')
 
 const User = require('../models/User')
 
@@ -38,6 +39,13 @@ module.exports = class UserController {
             return
         }
 
+        const userExists = await User.findOne({ email })
+
+        if (userExists) {
+            res.status(422).json({ message: 'Este e-mail já está cadastrado!' })
+            return
+        }
+
         const salt = await bcrypt.genSalt(12)
         const passwordHash = await bcrypt.hash(password, salt)
 
@@ -49,8 +57,9 @@ module.exports = class UserController {
         })
 
         try {
-            await user.save()
-            res.status(201).json({ message: 'Usuário registrado com sucesso!' })
+            const newUser = await user.save()
+            
+            await createUserToken(newUser, req, res)
         } catch (error) {
             console.log('ERRO: ' + error)
             res.status(500).json({ message: 'Ocorreu um erro ao registrar o usuário!' })
