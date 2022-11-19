@@ -1,5 +1,9 @@
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+// Helpers
 const createUserToken = require('../helpers/create-user-token')
+const getUserToken = require('../helpers/get-user-token')
 
 const User = require('../models/User')
 
@@ -97,6 +101,25 @@ module.exports = class UserController {
         }
 
         await createUserToken(user, req, res)
+
+    }
+
+    static async checkUser(req, res) {
+
+        let currentUser
+
+        if (req.headers.authorization) {
+            const token = getUserToken(req)
+            const decodedToken = jwt.verify(token, 'nossachave')
+
+            currentUser = await User.findById(decodedToken.id)
+
+            currentUser.password = undefined
+        } else {
+            currentUser = null
+        }
+
+        res.status(200).json(currentUser)
 
     }
 
