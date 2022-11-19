@@ -123,4 +123,24 @@ module.exports = class UserController {
 
     }
 
+    static async getUserById(req, res) {
+
+        const id = req.params.id
+
+        if (!id) {
+            res.status(422).json({ message: 'O campo id não foi informado!' })
+            return
+        }
+
+        const user = await User.findById(id).select('-password')
+
+        if (!user) {
+            res.status(422).json({ message: 'Usuário não encontrado!' })
+            return
+        }
+
+        res.status(200).json(user)
+
+    }
+
 }
