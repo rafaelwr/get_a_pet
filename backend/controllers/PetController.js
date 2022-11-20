@@ -3,6 +3,14 @@ const User = require('../models/User')
 
 module.exports = class {
 
+    static async getAll(req, res) {
+
+        const pets = await Pet.find().sort('-createdAt')
+
+        res.status(200).json({ pets })
+
+    }
+
     static async create(req, res) {
         
         const { name, age, weight, color } = req.body
