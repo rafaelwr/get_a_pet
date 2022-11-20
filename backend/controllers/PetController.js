@@ -11,6 +11,14 @@ module.exports = class {
 
     }
 
+    static async getAllByUser(req, res) {
+
+        const pets = await Pet.find({ 'user._id': req.user.id }).sort('-createdAt')
+
+        res.status(200).json({ pets })
+
+    }
+
     static async create(req, res) {
         
         const { name, age, weight, color } = req.body
