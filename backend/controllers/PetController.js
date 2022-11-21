@@ -216,4 +216,53 @@ module.exports = class {
 
     }
 
+    static async schedule(req, res) {
+
+        const id = req.params.id
+
+        if (!ObjectId.isValid(id)) {
+            res.status(422).json({ message: 'Id inválido!' })
+            return
+        }
+
+        const pet = await Pet.findById(id)
+
+        if (!pet) {
+            res.status(404).json({ message: 'Pet não encontrado!' })
+            return
+        }
+
+        if (pet.user._id === req.user.id) {
+            res.status(404).json({ message: 'O Pet informado já pertence a este usuário!' })
+            return
+        }
+
+        if (pet.adopter) {
+            if (pet.adopter._id === req.user.id) {
+                res.status(422).json({ message: 'Este usuário já agendou uma visita para este Pet!' })
+                return
+            }
+        }
+
+        const adopter = await User.findById(req.user.id)
+
+        const newAdopter = {
+            adopter: {
+                _id: adopter.id,
+                name: adopter.name,
+                image: adopter.image
+            }
+        }
+
+        try {
+            await Pet.findByIdAndUpdate(id, newAdopter)
+
+            res.status(200).json(`Visita agendada! Entre em contato com ${pet.user.name} pelo telefone ${pet.user.phone}`)
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ message: 'Ocorreu um erro!' })
+        }
+
+    }
+
 }
