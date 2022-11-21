@@ -9,19 +9,26 @@ import Register from './components/pages/Auth/Register'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Container from './components/layout/Container'
+import Message from './components/layout/Message'
+
+// Contexts
+import { UserProvider } from './context/UserContext'
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <Container>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Login />} />
-        </Routes>
-      </Container>
-      <Footer />
+      <UserProvider>
+        <Navbar />
+        <Message />
+        <Container>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+          </Routes>
+        </Container>
+        <Footer />
+      </UserProvider>
     </BrowserRouter>
   );
 }
