@@ -89,27 +89,27 @@ module.exports = class {
         const imagens = req.files
 
         if (!name) {
-            res.status(422).json({ message: 'O campo name é obrigatório!' })
+            res.status(422).json({ message: 'O campo Nome é obrigatório!' })
             return
         }
 
         if (!age) {
-            res.status(422).json({ message: 'O campo age é obrigatório!' })
+            res.status(422).json({ message: 'O campo Idade é obrigatório!' })
             return
         }
 
         if (!weight) {
-            res.status(422).json({ message: 'O campo weight é obrigatório!' })
+            res.status(422).json({ message: 'O campo Peso é obrigatório!' })
             return
         }
 
         if (!color) {
-            res.status(422).json({ message: 'O campo color é obrigatório!' })
+            res.status(422).json({ message: 'O campo Cor é obrigatório!' })
             return
         }
 
         if (imagens.length === 0) {
-            res.status(422).json({ message: 'O campo images é obrigatório!' })
+            res.status(422).json({ message: 'O campo Imagens é obrigatório!' })
             return
         }
 
@@ -170,27 +170,27 @@ module.exports = class {
         }
 
         if (!name) {
-            res.status(422).json({ message: 'O campo name é obrigatório!' })
+            res.status(422).json({ message: 'O campo Nome é obrigatório!' })
             return
         }
 
         if (!age) {
-            res.status(422).json({ message: 'O campo age é obrigatório!' })
+            res.status(422).json({ message: 'O campo Idade é obrigatório!' })
             return
         }
 
         if (!weight) {
-            res.status(422).json({ message: 'O campo weight é obrigatório!' })
+            res.status(422).json({ message: 'O campo Peso é obrigatório!' })
             return
         }
 
         if (!color) {
-            res.status(422).json({ message: 'O campo color é obrigatório!' })
+            res.status(422).json({ message: 'O campo Cor é obrigatório!' })
             return
         }
 
         if (imagens.length === 0) {
-            res.status(422).json({ message: 'O campo images é obrigatório!' })
+            res.status(422).json({ message: 'O campo Imagens é obrigatório!' })
             return
         }
 

@@ -16,32 +16,32 @@ module.exports = class UserController {
         const { name, email, phone, password, confirmPassword } = req.body
 
         if (!name) {
-            res.status(422).json({ message : 'O campo name é obrigatório!' })
+            res.status(422).json({ message : 'O campo Nome é obrigatório!' })
             return
         }
 
         if (!email) {
-            res.status(422).json({ message : 'O campo email é obrigatório!' })
+            res.status(422).json({ message : 'O campo E-mail é obrigatório!' })
             return
         }
 
         if (!phone) {
-            res.status(422).json({ message : 'O campo phone é obrigatório!' })
+            res.status(422).json({ message : 'O campo Telefone é obrigatório!' })
             return
         }
 
         if (!password) {
-            res.status(422).json({ message : 'O campo password é obrigatório!' })
+            res.status(422).json({ message : 'O campo Senha é obrigatório!' })
             return
         }
 
         if (!confirmPassword) {
-            res.status(422).json({ message : 'O campo confirmPassword é obrigatório!' })
+            res.status(422).json({ message : 'O campo de confirmação de senha é obrigatório!' })
             return
         }
 
         if (password !== confirmPassword) {
-            res.status(422).json({ message : 'Os campos password e confirmPassword precisam ser idênticos!' })
+            res.status(422).json({ message : 'Os campos de senha e confirmação de senha precisam ser idênticos!' })
             return
         }
 
@@ -79,12 +79,12 @@ module.exports = class UserController {
         const { email, password } = req.body
 
         if (!email) {
-            res.status(422).json({ message : 'O campo email é obrigatório!' })
+            res.status(422).json({ message : 'O campo Email é obrigatório!' })
             return
         }
 
         if (!password) {
-            res.status(422).json({ message : 'O campo password é obrigatório!' })
+            res.status(422).json({ message : 'O campo Senha é obrigatório!' })
             return
         }
 
@@ -169,7 +169,7 @@ module.exports = class UserController {
         }
 
         if (!email) {
-            res.status(422).json({ message : 'O campo email é obrigatório!' })
+            res.status(422).json({ message : 'O campo E-mail é obrigatório!' })
             return
         }
         const emailExists = await User.findOne({ email })
@@ -180,17 +180,17 @@ module.exports = class UserController {
         }
 
         if (!name) {
-            res.status(422).json({ message : 'O campo name é obrigatório!' })
+            res.status(422).json({ message : 'O campo Nome é obrigatório!' })
             return
         }
 
         if (!phone) {
-            res.status(422).json({ message : 'O campo phone é obrigatório!' })
+            res.status(422).json({ message : 'O campo Telefone é obrigatório!' })
             return
         }
 
         if (password !== confirmPassword) {
-            res.status(422).json({ message : 'Os campos password e confirmPassword precisam ser idênticos!' })
+            res.status(422).json({ message : 'Os campos de senha e confirmação de senha precisam ser idênticos!' })
             return
         }
 
