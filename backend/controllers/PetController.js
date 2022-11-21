@@ -164,7 +164,7 @@ module.exports = class {
             return
         }
 
-        if (petExists.user._id.toString() !== req.user.id) {
+        if (petExists.user._id.toString() !== req.user.id.toString()) {
             res.status(404).json({ message: 'Pet não encontrado!' })
             return
         }
@@ -261,6 +261,41 @@ module.exports = class {
         } catch (error) {
             console.log(error)
             res.status(500).json({ message: 'Ocorreu um erro!' })
+        }
+
+    }
+
+    static async concludeAdoption(req, res) {
+
+        const id = req.params.id
+
+        if (!ObjectId.isValid(id)) {
+            res.status(422).json({ message: 'Id inválido!' })
+            return
+        }
+
+        const pet = await Pet.findById(id)
+
+        if (!pet) {
+            res.status(404).json({ message: 'Pet não encontrado!' })
+            return
+        }
+
+        if (pet.user._id.toString() !== req.user.id.toString()) {
+            res.status(404).json({ message: 'Pet não encontrado!' })
+            return
+        }
+
+        try {
+            await Pet.findByIdAndUpdate(id, { available: false })
+
+            res.status(200).json({ message: 'Parabéns! O Pet foi adotado.' })
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ 
+                message: 'Ocorreu um erro!', 
+                pet
+            })
         }
 
     }
