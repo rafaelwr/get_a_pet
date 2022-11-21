@@ -146,4 +146,74 @@ module.exports = class {
 
     }
 
+    static async update(req, res) {
+
+        const id = req.params.id
+        const { name, age, weight, color, available } = req.body
+        const imagens = req.files
+
+        if (!ObjectId.isValid(id)) {
+            res.status(422).json({ message: 'Id inválido!' })
+            return
+        }
+
+        const petExists = await Pet.findById(id)
+
+        if (!petExists) {
+            res.status(404).json({ message: 'Pet não encontrado!' })
+            return
+        }
+
+        if (petExists.user._id.toString() !== req.user.id) {
+            res.status(404).json({ message: 'Pet não encontrado!' })
+            return
+        }
+
+        if (!name) {
+            res.status(422).json({ message: 'O campo name é obrigatório!' })
+            return
+        }
+
+        if (!age) {
+            res.status(422).json({ message: 'O campo age é obrigatório!' })
+            return
+        }
+
+        if (!weight) {
+            res.status(422).json({ message: 'O campo weight é obrigatório!' })
+            return
+        }
+
+        if (!color) {
+            res.status(422).json({ message: 'O campo color é obrigatório!' })
+            return
+        }
+
+        if (imagens.length === 0) {
+            res.status(422).json({ message: 'O campo images é obrigatório!' })
+            return
+        }
+
+        const pet = {
+            name,
+            age,
+            color,
+            weight,
+            available,
+            images: []
+        }
+
+        await imagens.map((image) => pet.images.push(image.filename))
+
+        try {
+            await Pet.findByIdAndUpdate(id, pet)
+
+            res.status(200).json({ message: 'Pet atualizado com sucesso!' })
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ message: 'Ocorreu um erro!' })
+        }
+
+    }
+
 }
