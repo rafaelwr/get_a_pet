@@ -189,11 +189,6 @@ module.exports = class {
             return
         }
 
-        if (imagens.length === 0) {
-            res.status(422).json({ message: 'O campo Imagens é obrigatório!' })
-            return
-        }
-
         const pet = {
             name,
             age,
@@ -203,7 +198,9 @@ module.exports = class {
             images: []
         }
 
-        await imagens.map((image) => pet.images.push(image.filename))
+        if (imagens) {
+            await imagens.map((image) => pet.images.push(image.filename))
+        }
 
         try {
             await Pet.findByIdAndUpdate(id, pet)
