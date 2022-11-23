@@ -194,11 +194,11 @@ module.exports = class {
             age,
             color,
             weight,
-            available,
-            images: []
+            available
         }
 
-        if (imagens) {
+        if (imagens.length > 0) {
+            pet.images = []
             await imagens.map((image) => pet.images.push(image.filename))
         }
 
