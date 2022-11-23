@@ -13,7 +13,7 @@ export default function useAuth() {
 
         if (token) {
             api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`
-            setAuthenticated(true)
+            //setAuthenticated(true)
         }
     }, [])
 
